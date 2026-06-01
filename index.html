@@ -10,32 +10,28 @@
 
     <div class="game-container">
         <h1>Pegue as Estrelas! 🌟</h1>
-        <p>Clique nas estrelas antes que elas sumam!</p>
+        <p>Clique no máximo de estrelas que conseguir antes que o tempo acabe!</p>
 
-        <input type="checkbox" id="star1" class="star-check">
-        <input type="checkbox" id="star2" class="star-check">
-        <input type="checkbox" id="star3" class="star-check">
-        <input type="checkbox" id="star4" class="star-check">
-        <input type="checkbox" id="star5" class="star-check">
-
-        <div class="game-area">
-            <label for="star1" class="star s1">⭐</label>
-            <label for="star2" class="star s2">⭐</label>
-            <label for="star3" class="star s3">⭐</label>
-            <label for="star4" class="star s4">⭐</label>
-            <label for="star5" class="star s5">⭐</label>
-            
-            <div class="win-screen">
-                <h2>Você Venceu! 🎉</h2>
-                <p>Incrível! Você pegou todas as estrelas.</p>
-                <a href="" class="btn-reset">Jogar Novamente</a>
-            </div>
+        <div class="info-bar">
+            <div class="info-box">Pontos: <span id="score">0</span></div>
+            <div class="info-box">Tempo: <span id="time">30</span>s</div>
         </div>
 
-        <div class="score-board">
-            Pontuação: <span class="score-counter"></span> / 5
+        <div class="game-area" id="game-area">
+            
+            <div class="game-over-screen" id="game-over">
+                <h2>Fim de Jogo! 🎮</h2>
+                <p>Você conseguiu pegar <span id="final-score">0</span> estrelas!</p>
+                <button class="btn-start" id="btn-restart">Jogar Novamente</button>
+            </div>
+
+            <div class="start-screen" id="start-screen">
+                <button class="btn-start" id="btn-start">Iniciar Jogo</button>
+            </div>
+
         </div>
     </div>
 
+    <script src="script.js"></script>
 </body>
 </html>
