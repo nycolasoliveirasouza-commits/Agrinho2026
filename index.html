@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo: Pegue a Estrela!</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="game-container">
+        <h1>Pegue as Estrelas! 🌟</h1>
+        <p>Clique nas estrelas antes que elas sumam!</p>
+
+        <input type="checkbox" id="star1" class="star-check">
+        <input type="checkbox" id="star2" class="star-check">
+        <input type="checkbox" id="star3" class="star-check">
+        <input type="checkbox" id="star4" class="star-check">
+        <input type="checkbox" id="star5" class="star-check">
+
+        <div class="game-area">
+            <label for="star1" class="star s1">⭐</label>
+            <label for="star2" class="star s2">⭐</label>
+            <label for="star3" class="star s3">⭐</label>
+            <label for="star4" class="star s4">⭐</label>
+            <label for="star5" class="star s5">⭐</label>
+            
+            <div class="win-screen">
+                <h2>Você Venceu! 🎉</h2>
+                <p>Incrível! Você pegou todas as estrelas.</p>
+                <a href="" class="btn-reset">Jogar Novamente</a>
+            </div>
+        </div>
+
+        <div class="score-board">
+            Pontuação: <span class="score-counter"></span> / 5
+        </div>
+    </div>
+
+</body>
+</html>
