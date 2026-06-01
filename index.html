@@ -3,32 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jogo: Pegue a Estrela!</title>
+    <title>EcoNetwork - O Jogo da Rede Social Verde</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div class="game-container">
-        <h1>Pegue as Estrelas! 🌟</h1>
-        <p>Clique no máximo de estrelas que conseguir antes que o tempo acabe!</p>
-
-        <div class="info-bar">
-            <div class="info-box">Pontos: <span id="score">0</span></div>
-            <div class="info-box">Tempo: <span id="time">30</span>s</div>
+    <header class="navbar">
+        <div class="logo">🌿 EcoNetwork</div>
+        <div class="stats-top">
+            <div class="stat-box">Seguidores: <span id="followers">0</span></div>
+            <div class="stat-box">Eco-Points: 🌱 <span id="eco-points">10</span></div>
+            <div class="stat-box">CO₂ Salvo: 🌍 <span id="co2-saved">0</span> kg</div>
         </div>
+    </header>
 
-        <div class="game-area" id="game-area">
+    <div class="main-container">
+        
+        <aside class="sidebar">
+            <h3>Painel de Expansão 🚀</h3>
+            <p class="subtitle">Melhore sua infraestrutura verde:</p>
             
-            <div class="game-over-screen" id="game-over">
-                <h2>Fim de Jogo! 🎮</h2>
-                <p>Você conseguiu pegar <span id="final-score">0</span> estrelas!</p>
-                <button class="btn-start" id="btn-restart">Jogar Novamente</button>
+            <div class="upgrade-card" id="upgrade-solar">
+                <h4>☀️ Servidores Solares</h4>
+                <p>Ganha +1 Eco-Point por clique.</p>
+                <button class="btn-upgrade" id="btn-upgrade-solar">Comprar (Preço: 15🌱)</button>
             </div>
 
-            <div class="start-screen" id="start-screen">
-                <button class="btn-start" id="btn-start">Iniciar Jogo</button>
+            <div class="upgrade-card" id="upgrade-bot">
+                <h4>🤖 Eco-Bot Moderador</h4>
+                <p>Ganha +2 seguidores automaticamente por segundo.</p>
+                <button class="btn-upgrade" id="btn-upgrade-bot">Contratar (Preço: 50🌱)</button>
             </div>
 
+            <div class="upgrade-card" id="upgrade-campaign">
+                <h4>📢 Campanha Plantio de Árvores</h4>
+                <p>Multiplica o ganho de CO₂ salvo.</p>
+                <button class="btn-upgrade" id="btn-upgrade-campaign">Lançar (Preço: 150🌱)</button>
+            </div>
+        </aside>
+
+        <main class="feed-container">
+            
+            <div class="create-post">
+                <h3>O que você quer compartilhar de sustentável hoje?</h3>
+                <div class="post-buttons">
+                    <button class="btn-post" onclick="publishPost('tree')">🌲 Postar sobre Reflorestamento</button>
+                    <button class="btn-post" onclick="publishPost('solar')">☀️ Postar sobre Energia Limpa</button>
+                    <button class="btn-post" onclick="publishPost('recycle')">♻️ Postar sobre Reciclagem</button>
+                </div>
+            </div>
+
+            <div class="feed" id="feed-area">
+                <div class="welcome-post">
+                    <h4>Bem-vindo à EcoNetwork! 👋</h4>
+                    <p>Clique nos botões acima para criar suas primeiras publicações ecológicas, engajar sua comunidade e acumular Eco-Points!</p>
+                </div>
+            </div>
+        </main>
+
+    </div>
+
+    <div class="overlay" id="event-overlay">
+        <div class="event-modal">
+            <h2 id="event-title">⚠️ Alerta de Greenwashing!</h2>
+            <p id="event-desc">Uma grande empresa postou que seus produtos plásticos são "100% biodegradáveis em 1 dia", o que é mentira! O que você faz?</p>
+            <div class="event-choices">
+                <button class="btn-choice" id="choice-1">Banir a Conta (-20🌱 / +1000 Segundos)</button>
+                <button class="btn-choice" id="choice-2">Cobrar taxa ecológica (+50🌱 / -200 Seguidores)</button>
+            </div>
         </div>
     </div>
 

@@ -1,97 +1,163 @@
-// Seleção de elementos do HTML
-const gameArea = document.getElementById('game-area');
-const scoreDisplay = document.getElementById('score');
-const timeDisplay = document.getElementById('time');
-const startScreen = document.getElementById('start-screen');
-const gameOverScreen = document.getElementById('game-over');
-const finalScoreDisplay = document.getElementById('final-score');
-const btnStart = document.getElementById('btn-start');
-const btnRestart = document.getElementById('btn-restart');
+// Estado do Jogo
+let followers = 0;
+let ecoPoints = 10;
+let co2Saved = 0;
 
-// Variáveis de controle do estado do jogo
-let score = 0;
-let timeLeft = 30;
-let gameInterval;
-let starTimer;
+// Multiplicadores e Upgrades
+let clickPower = 1;
+let autoFollowersPerSecond = 0;
+let co2Multiplier = 1;
 
-// Ouvintes de clique para iniciar/reiniciar
-btnStart.addEventListener('click', startGame);
-btnRestart.addEventListener('click', startGame);
+let costSolar = 15;
+let costBot = 50;
+let costCampaign = 150;
 
-function startGame() {
-    // Resetar variáveis
-    score = 0;
-    timeLeft = 30;
-    scoreDisplay.innerText = score;
-    timeDisplay.innerText = timeLeft;
+// Elementos HTML
+const txtFollowers = document.getElementById('followers');
+const txtEcoPoints = document.getElementById('eco-points');
+const txtCo2Saved = document.getElementById('co2-saved');
+const feedArea = document.getElementById('feed-area');
 
-    // Esconder telas de menu
-    startScreen.style.display = 'none';
-    gameOverScreen.style.display = 'none';
+// Botões de upgrade
+const btnSolar = document.getElementById('btn-upgrade-solar');
+const btnBot = document.getElementById('btn-upgrade-bot');
+const btnCampaign = document.getElementById('btn-upgrade-campaign');
 
-    // Limpar estrelas antigas que possam ter ficado na tela
-    document.querySelectorAll('.star').forEach(star => star.remove());
+// Elementos do Modal de Eventos
+const eventOverlay = document.getElementById('event-overlay');
+const choice1 = document.getElementById('choice-1');
+const choice2 = document.getElementById('choice-2');
 
-    // Iniciar cronômetro do jogo (executa a cada 1 segundo)
-    gameInterval = setInterval(updateTime, 1000);
+// Mecânica 1: Publicar posts (Gera Eco-points e Seguidores)
+function publishPost(type) {
+    let title = "";
+    let content = "";
+    let followersGained = Math.floor(Math.random() * 15) + 5;
+    let co2Gained = 0;
 
-    // Começar a gerar estrelas
-    spawnStar();
-}
+    switch(type) {
+        case 'tree':
+            title = "🌳 Desafio de Reflorestamento Urbano!";
+            content = "Acabamos de plantar 50 novas mudas nativas no parque central. Menos asfalto, mais oxigênio!";
+            co2Gained = 12 * co2Multiplier;
+            break;
+        case 'solar':
+            title = "☀️ Energia Limpa em Casa";
+            content = "Instalar painéis solares reduz em até 95% a conta de luz e corta o uso de usinas termoelétricas poluentes.";
+            co2Gained = 25 * co2Multiplier;
+            break;
+        case 'recycle':
+            title = "♻️ Guia Definitivo da Coleta Seletiva";
+            content = "Lavar as embalagens plásticas antes de descartar ajuda as cooperativas e aumenta a reciclagem real!";
+            co2Gained = 8 * co2Multiplier;
+            break;
+    }
 
-function updateTime() {
-    timeLeft--;
-    timeDisplay.innerText = timeLeft;
+    // Atualiza pontuação
+    ecoPoints += clickPower;
+    followers += followersGained;
+    co2Saved += co2Gained;
+    updateUI();
 
-    if (timeLeft <= 0) {
-        endGame();
+    // Insere o post no início do feed
+    const postCard = document.createElement('div');
+    postCard.classList.add('post-card');
+    postCard.innerHTML = `
+        <h4>${title}</h4>
+        <p>${content}</p>
+        <div class="post-meta">💚 Engajamento: +${followersGained} novos seguidores | 🌍 CO₂ evitado: ${co2Gained}kg</div>
+    `;
+    
+    feedArea.insertBefore(postCard, feedArea.firstChild);
+
+    // Chance de 15% de gerar uma fake news / greenwashing após postar
+    if(Math.random() < 0.15) {
+        setTimeout(triggerGreenwashingEvent, 1000);
     }
 }
 
-function spawnStar() {
-    // Se o tempo acabou, não gera novas estrelas
-    if (timeLeft <= 0) return;
+// Mecânica 2: Lógica de Compra de Upgrades
+btnSolar.addEventListener('click', () => {
+    if (ecoPoints >= costSolar) {
+        ecoPoints -= costSolar;
+        clickPower += 1;
+        costSolar = Math.floor(costSolar * 1.5);
+        btnSolar.innerText = `Comprar (Preço: ${costSolar}🌱)`;
+        updateUI();
+        addSystemLog("☀️ Sistema Solar atualizado! Seus cliques agora dão mais Eco-Points.");
+    } else {
+        alert("Eco-Points insuficientes! Publique mais posts ecológicos.");
+    }
+});
 
-    // Criar o elemento da estrela
-    const star = document.createElement('div');
-    star.classList.add('star');
-    star.innerText = '⭐';
+btnBot.addEventListener('click', () => {
+    if (ecoPoints >= costBot) {
+        ecoPoints -= costBot;
+        autoFollowersPerSecond += 2;
+        costBot = Math.floor(costBot * 1.6);
+        btnBot.innerText = `Contratar (Preço: ${costBot}🌱)`;
+        updateUI();
+        addSystemLog("🤖 Eco-Bot Moderador ativo! Limpando spam e trazendo novos seguidores.");
+    } else {
+        alert("Eco-Points insuficientes!");
+    }
+});
 
-    // Calcular posições aleatórias dentro da área do jogo (descontando o tamanho da estrela)
-    const areaWidth = gameArea.clientWidth - 40;
-    const areaHeight = gameArea.clientHeight - 40;
-    
-    const randomX = Math.floor(Math.random() * areaWidth);
-    const randomY = Math.floor(Math.random() * areaHeight);
+btnCampaign.addEventListener('click', () => {
+    if (ecoPoints >= costCampaign) {
+        ecoPoints -= costCampaign;
+        co2Multiplier += 1;
+        costCampaign = Math.floor(costCampaign * 1.8);
+        btnCampaign.innerText = `Lançar (Preço: ${costCampaign}🌱)`;
+        updateUI();
+        addSystemLog("📢 Campanha Global lançada! Consciência ecológica multiplicada.");
+    } else {
+        alert("Eco-Points insuficientes!");
+    }
+});
 
-    star.style.left = `${randomX}px`;
-    star.style.top = `${randomY}px`;
+// Mecânica 3: Loop Automático (Moderação de Bots gerando seguidores por segundo)
+setInterval(() => {
+    if (autoFollowersPerSecond > 0) {
+        followers += autoFollowersPerSecond;
+        updateUI();
+    }
+}, 1000);
 
-    // Evento de clique na estrela
-    star.addEventListener('mousedown', () => {
-        score++;
-        scoreDisplay.innerText = score;
-        star.remove(); // Remove a estrela clicada imediatamente
-        clearTimeout(starTimer); // Cancela o sumiço automático agendado
-        spawnStar(); // Spawna a próxima estrela imediatamente
-    });
-
-    // Adicionar a estrela na tela
-    gameArea.appendChild(star);
-
-    // Fazer a estrela sumir sozinha e aparecer em outro lugar se o jogador demorar (800ms)
-    starTimer = setTimeout(() => {
-        star.remove();
-        spawnStar();
-    }, 800); 
+// Auxiliares: Atualizar Dados na Tela
+function updateUI() {
+    txtFollowers.innerText = followers;
+    txtEcoPoints.innerText = ecoPoints;
+    txtCo2Saved.innerText = co2Saved;
 }
 
-function endGame() {
-    // Parar todos os contadores
-    clearInterval(gameInterval);
-    clearTimeout(starTimer);
+function addSystemLog(message) {
+    const logCard = document.createElement('div');
+    logCard.classList.add('post-card');
+    logCard.style.borderLeft = "5px solid #2e7d32";
+    logCard.innerHTML = `<h4>⚙️ Atualização do Sistema</h4><p>${message}</p>`;
+    feedArea.insertBefore(logCard, feedArea.firstChild);
+}
 
-    // Mostrar tela de fim de jogo e pontuação final
-    finalScoreDisplay.innerText = score;
-    gameOverScreen.style.display = 'flex';
+// Mecânica 4: Evento Randômico de Tomada de Decisão (Crise Ecológica)
+function triggerGreenwashingEvent() {
+    eventOverlay.classList.add('active');
+
+    choice1.onclick = () => {
+        // Opção Severa
+        if(ecoPoints >= 10) { ecoPoints -= 10; } else { ecoPoints = 0; }
+        followers += 150;
+        addSystemLog("🛡️ Você baniu a marca fraudulenta! A comunidade amou sua postura ética e você ganhou +150 seguidores.");
+        eventOverlay.classList.remove('active');
+        updateUI();
+    };
+
+    choice2.onclick = () => {
+        // Opção Capitalista
+        ecoPoints += 30;
+        if(followers >= 50) { followers -= 50; } else { followers = 0; }
+        addSystemLog("💰 Você aplicou uma multa alternativa de créditos. Você ganhou +30 Eco-Points, mas alguns usuários saíram em protesto (-50 seguidores).");
+        eventOverlay.classList.remove('active');
+        updateUI();
+    };
 }
