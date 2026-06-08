@@ -3,73 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AgroFuturo: Sustentabilidade</title>
+    <title>Agrinho 2026 - Agro Forte e Sustentável</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="game-container">
-        <header>
-            <h1>🌱 AgroFuturo 🚀</h1>
-            <p>Produza com responsabilidade e guie o agro para o futuro sustentável!</p>
-        </header>
-
-        <main class="game-layout">
-            <section class="farm-section">
-                <div class="score-board">
-                    <h2>Moedas Verdes: <span id="coins">0</span> 🪙</h2>
-                    <p>Produção por segundo: <span id="cps">0</span>/s</p>
-                    <p>Sustentabilidade: <span id="eco-points">100</span>% ♻️</p>
-                </div>
-                
-                <div class="click-area">
-                    <button id="harvest-btn">🌾 Colher Biomassa</button>
-                </div>
-            </section>
-
-            <section class="shop-section">
-                <h2>Tecnologias Sustentáveis</h2>
-                <div class="upgrades-list">
-                    
-                    <div class="upgrade-item">
-                        <div class="upgrade-info">
-                            <h3>Irrigação Gota a Gota</h3>
-                            <p>Economiza água e aumenta a produção (+1/s).</p>
-                            <span class="price">Custo: <span id="cost-irrigation">15</span> moedas</span>
-                        </div>
-                        <button id="buy-irrigation">Comprar</button>
-                    </div>
-
-                    <div class="upgrade-item">
-                        <div class="upgrade-info">
-                            <h3>Painéis Solares</h3>
-                            <p>Energia limpa para as máquinas (+5/s).</p>
-                            <span class="price">Custo: <span id="cost-solar">100</span> moedas</span>
-                        </div>
-                        <button id="buy-solar">Comprar</button>
-                    </div>
-
-                    <div class="upgrade-item">
-                        <div class="upgrade-info">
-                            <h3>Biofertilizantes</h3>
-                            <p>Nutre a terra sem poluir (+25/s).</p>
-                            <span class="price">Custo: <span id="cost-bio">500</span> moedas</span>
-                        </div>
-                        <button id="buy-bio">Comprar</button>
-                    </div>
-
-                    <div class="upgrade-item">
-                        <div class="upgrade-info">
-                            <h3>Drones de Precisão</h3>
-                            <p>Monitoramento avançado IA (+100/s).</p>
-                            <span class="price">Custo: <span id="cost-drone">3000</span> moedas</span>
-                        </div>
-                        <button id="buy-drone">Comprar</button>
-                    </div>
-
-                </div>
-            </section>
-        </main>
+    <h1>Agrinho 2026 🌱</h1>
+    <p>Cuide da sua plantação e colha antes que as pragas cheguem!</p>
+    
+    <div id="game-container">
+        <div id="field"></div>
+        <button id="plant-btn">Plantar Semente</button>
+        <p>Plantas no campo: <span id="plant-count">0</span></p>
+        <p>Pontos: <span id="score">0</span></p>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>

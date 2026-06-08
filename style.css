@@ -1,170 +1,67 @@
-* {
+body {
+    font-family: 'Arial', sans-serif;
+    background: #d9f2d9;
+    text-align: center;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-body {
-    background-color: #e8f5e9;
-    color: #2e7d32;
+h1 {
+    color: #2d7a2d;
+    margin-top: 20px;
+}
+
+#game-container {
+    margin: 20px auto;
+    width: 90%;
+    max-width: 600px;
+    padding: 10px;
+    background-color: #e6ffe6;
+    border: 2px solid #2d7a2d;
+    border-radius: 10px;
+}
+
+#field {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    padding: 20px;
+    margin: 20px 0;
+    min-height: 200px;
 }
 
-.game-container {
-    background: #ffffff;
-    width: 100%;
-    max-width: 900px;
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    overflow: hidden;
-    border: 3px solid #81c784;
-}
-
-header {
-    background-color: #2e7d32;
-    color: white;
-    text-align: center;
-    padding: 20px;
-}
-
-header h1 {
-    font-size: 2.5rem;
-    margin-bottom: 5px;
-}
-
-.game-layout {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-    padding: 20px;
-}
-
-@media (max-width: 768px) {
-    .game-layout {
-        grid-template-columns: 1fr;
-    }
-}
-
-/* Seção da Fazenda */
-.farm-section {
+.plant {
+    width: 50px;
+    height: 50px;
+    margin: 5px;
+    background-color: #6ab04c;
+    border-radius: 5px;
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
     align-items: center;
-    background: #f1f8e9;
-    padding: 20px;
-    border-radius: 10px;
-    border: 2px dashed #a5d6a7;
-}
-
-.score-board {
-    text-align: center;
-    width: 100%;
-}
-
-.score-board h2 {
-    font-size: 1.8rem;
-    margin-bottom: 10px;
-}
-
-.score-board p {
-    font-size: 1.1rem;
-    font-weight: bold;
-    color: #558b2f;
-    margin-bottom: 5px;
-}
-
-.click-area {
-    margin: 40px 0;
-}
-
-#harvest-btn {
-    background-color: #4caf50;
+    justify-content: center;
     color: white;
-    font-size: 1.5rem;
     font-weight: bold;
-    padding: 40px 30px;
-    border: none;
-    border-radius: 50%;
     cursor: pointer;
-    box-shadow: 0 8px 0 #388e3c;
-    transition: all 0.1s ease;
-}
-
-#harvest-btn:active {
-    transform: translateY(6px);
-    box-shadow: 0 2px 0 #388e3c;
-}
-
-/* Seção da Loja */
-.shop-section {
-    background: #fafafa;
-    padding: 20px;
-    border-radius: 10px;
-    border: 1px solid #e0e0e0;
-    max-height: 450px;
-    overflow-y: auto;
-}
-
-.shop-section h2 {
-    margin-bottom: 15px;
-    border-bottom: 2px solid #a5d6a7;
-    padding-bottom: 5px;
-}
-
-.upgrade-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: white;
-    padding: 12px;
-    margin-bottom: 10px;
-    border-radius: 8px;
-    border: 1px solid #e0e0e0;
     transition: transform 0.2s;
 }
 
-.upgrade-item:hover {
-    transform: translateX(5px);
-    border-color: #81c784;
+.plant.ready {
+    background-color: #27ae60;
 }
 
-.upgrade-info h3 {
-    font-size: 1.1rem;
-    color: #1b5e20;
+.plant:hover {
+    transform: scale(1.1);
 }
 
-.upgrade-info p {
-    font-size: 0.85rem;
-    color: #616161;
-}
-
-.price {
-    font-size: 0.9rem;
-    font-weight: bold;
-    color: #e65100;
-}
-
-.shop-section button {
-    background-color: #2e7d32;
+button {
+    padding: 10px 20px;
+    background-color: #2d7a2d;
     color: white;
     border: none;
-    padding: 8px 15px;
     border-radius: 5px;
     cursor: pointer;
-    font-weight: bold;
+    font-size: 16px;
 }
 
-.shop-section button:hover {
-    background-color: #388e3c;
-}
-
-.shop-section button:disabled {
-    background-color: #bdbdbd;
-    cursor: not-allowed;
+button:hover {
+    background-color: #1b4f1b;
 }
